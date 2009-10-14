@@ -12,10 +12,9 @@
     <div id="nav">
       <h3>View</h3>
       <ul>
-        <li><a href="#!recent">Recent reports.</a></li>
-        <li>Counts of failures.</li>
-        <li>Counts of success.</li>
-        <li>Counts of runs by version.</li>
+        <li><a href="#!recent">Recent reports</a></li>
+        <li><a href="#!tests">Success by test</a></li>
+        <li>Counts of runs by date.</li>
         <li>Average run time for each test.</li>
         <li>Average run time across versions for each test.</li>
         <li>Page through test reports by version.</li>
@@ -39,26 +38,7 @@
   <script src="/_utils/script/jquery.js"></script>
   <script src="/_utils/script/jquery.couch.js"></script>
   <script src="./vendor/couchapp/jquery.couchapp.js"></script>
+  <script src="./script/views.js"></script>
   <script type="text/javascript" charset="utf-8">
-    function get_link(hash) {
-      return $('a[href="'+hash+'"]');
-    };
-    $.CouchApp(function(app) {
-      $(get_link("#!recent")).click(function() {
-        app.view("recent", {
-          success : function(view) {
-            // TODO this should use mustache and be a table
-            $("#content").html('<h2>Recent Reports</h2><dl class="view"><dt>version, time, pass, fail, success percentage</dt></dl>');
-            var lis = view.rows.map(function(row) {
-              var pass = row.value.pass, fail = row.value.fail;
-              var percent = (pass / (pass + fail)*100);
-              var link = '<a href="'+app.futonDocPath(row.id)+'">'+row.key.join(', ')+'</a>';
-              return '<dd>'+[link, pass, fail, percent].join(', ')+'%</dd>';
-            });
-            $("#content dl").append(lis.join(''))
-          }
-        });
-      });
-    });
   </script>
 </html>
