@@ -36,6 +36,12 @@ ul {
   background: #eef;
 }
 
-.view li {
-  background: #eef;
+table.view td {
+  background: #fff;
+  padding:4px 2px;
+  text-align:right;
+}
+
+table.view td.name {
+  text-align:left;
 }

@@ -17,6 +17,6 @@ function(ks, vs, co) {
   return {
     pass : pass,
     fail : fail,
-    percent : ((pass / (pass + fail)) * 100)
+    percent :  Math.round((pass / (pass + fail)) * 100)
   }
 };
