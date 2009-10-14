@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CouchDB Test Report Utility</title>
+    <title>Relaxville : CouchDB Test Report Utility and Public House</title>
     <link rel="stylesheet" href="style/main.css" type="text/css">
   </head>
   <body>
     <div id="header">
       <img src="/_utils/image/logo.png">
-      <h1>Test Reports</h1>      
+      <h1>Relaxville Reporter</h1>
     </div>
     <div id="nav">
       <h3>View</h3>
       <ul>
-        <li>Recent reports.</li>
+        <li><a href="#!recent">Recent reports.</a></li>
         <li>Counts of failures.</li>
         <li>Counts of success.</li>
         <li>Counts of runs by version.</li>
@@ -40,17 +40,25 @@
   <script src="/_utils/script/jquery.couch.js"></script>
   <script src="./vendor/couchapp/jquery.couchapp.js"></script>
   <script type="text/javascript" charset="utf-8">
+    function get_link(hash) {
+      return $('a[href="'+hash+'"]');
+    };
     $.CouchApp(function(app) {
-      app.view("recent", {
-        success : function(view) {
-          console.log(view);
-          $("#content").html("<h2>Recent Reports</h2><ul></ul>");
-          var lis = view.rows.map(function(row) {
-            return '<li>'+row.key.join(' ')+'</li>';
-          });
-          $("#content ul").html(lis.join(''))
-        }
-      })
+      $(get_link("#!recent")).click(function() {
+        app.view("recent", {
+          success : function(view) {
+            // TODO this should use mustache and be a table
+            $("#content").html('<h2>Recent Reports</h2><dl class="view"><dt>version, time, pass, fail, success percentage</dt></dl>');
+            var lis = view.rows.map(function(row) {
+              var pass = row.value.pass, fail = row.value.fail;
+              var percent = (pass / (pass + fail)*100);
+              var link = '<a href="'+app.futonDocPath(row.id)+'">'+row.key.join(', ')+'</a>';
+              return '<dd>'+[link, pass, fail, percent].join(', ')+'%</dd>';
+            });
+            $("#content dl").append(lis.join(''))
+          }
+        });
+      });
     });
   </script>
 </html>

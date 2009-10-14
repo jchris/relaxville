@@ -159,6 +159,9 @@
         listPath : function(funcname, viewname) {
           return '/'+[dbname, '_design', dname, '_list', funcname, viewname].join('/')
         },
+        futonDocPath : function(docid) {
+          return "/_utils/document.html?"+dbname+"/"+docid;
+        },
         slugifyString : function(string) {
           return string.replace(/\W/g,'-').
             replace(/\-*$/,'').replace(/^\-*/,'').
