@@ -1,0 +1,35 @@
+/* add styles here */
+body {
+  background: #efeffc;
+  font-family: Helvetica, "MS Trebuchet", sans-serif;
+}
+
+#header {
+  background: #448;
+  color:#fff;
+  padding: 8px 16px;
+}
+
+#header img {
+  float:left;
+  height:4em;
+  margin: 8px 16px 8px 8px;
+}
+
+#nav {
+  border:8px solid #448;
+  float:left;
+  width:200px;
+  padding: 8px 16px;
+  margin: 8px 16px;
+}
+
+#nav ul {
+  list-style: none;
+}
+
+#nav li {
+  padding:4px;
+  margin:1px;
+  background: #eef;
+}

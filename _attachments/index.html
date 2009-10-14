@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CouchDB Test Report Utility</title>
+    <link rel="stylesheet" href="style/main.css" type="text/css">
+  </head>
+  <body>
+    <div id="header">
+      <img src="/_utils/image/logo.png">
+      <h1>Test Reports</h1>      
+    </div>
+    <div id="nav">
+      <h3>View</h3>
+      <ul>
+        <li>Recent reports.</li>
+        <li>Counts of failures.</li>
+        <li>Counts of success.</li>
+        <li>Counts of runs by version.</li>
+        <li>Average run time for each test.</li>
+        <li>Average run time across versions for each test.</li>
+        <li>Page through test reports by version.</li>
+      </ul>
+      <h3>Share</h3>
+      <ul>
+        <li>Publish your reports.</li>
+        <li>Import reports from another Couch.</li>
+      </ul>
+    </div>
+    <div id="content">
+      <h2>Welcome to Relaxville!</h2>
+      <p>This page lists various views you can get of the test data in this database, as well as actions you can take to share your results.</p>
+
+      <p>If you are running this application on your own CouchDB instance, the views are only over the test runs that are on your local machine. Reports are contributed by replicating your <a href="/test_suite_reports">test_suite_reports</a> database to the database at <a href="http://couchdb.couchdb.org/test_suite_reports">http://couchdb.couchdb.org/test_suite_reports</a>.</p>
+      <p><a href="">Click this link to contribute your test run data for everyone to browse.</a></p>
+      <p>The closest thing to identifying data in the report documents is your timezone and the version of CouchDB you are using. You can <a href="/_utils/database.html?test_suite_reports">view the report documents yourself</a> to be sure you don't send any data to the project that you'd like to keep private. We think the reports are pretty safe to share, hopefully you agree. Please contact the project if you have any reservations, so we can help put them to rest.</p>
+    </div>
+  </body>
+  <script src="/_utils/script/json2.js"></script>
+  <script src="/_utils/script/jquery.js"></script>
+  <script src="/_utils/script/jquery.couch.js"></script>
+</html>
