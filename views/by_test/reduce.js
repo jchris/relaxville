@@ -13,7 +13,7 @@ function(ks, vs, co) {
         fail++;
       }
     };
-  }
+  };
   return {
     pass : pass,
     fail : fail,
