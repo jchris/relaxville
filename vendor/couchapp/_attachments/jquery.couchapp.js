@@ -10,6 +10,8 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
+// RELAXVILLE
+
 // Usage: The passed in function is called when the page is ready.
 // CouchApp passes in the app object, which takes care of linking to 
 // the proper database, and provides access to the CouchApp helpers.
@@ -168,18 +170,25 @@
             replace(/\-{2,}/,'-');
         },
         attemptLogin : function(win, fail) {
-          // depends on nasty hack in blog validation function
-          db.saveDoc({"author":"_self"}, { error: function(s, e, r) {
-            var namep = r.split(':');
-            if (namep[0] == '_self') {
-              login = namep.pop();
-              $.cookies.set("login", login, '/'+dbname)
-              win && win(login);
-            } else {
-              $.cookies.set("login", "", '/'+dbname)
-              fail && fail(s, e, r);
+          var self = this;
+          $.ajax({
+            url: "/_session",
+            dataType: "json",
+            success:function(data) {
+              login = data.name;
+              if (login) {
+                $.cookies.set("login", login, '/'+dbname);
+                win && win(login); 
+              } else {
+                $.cookies.set("login", "", '/'+dbname);
+                fail && fail();                
+              }
+            },
+            error: function() {
+              $.cookies.set("login", "", '/'+dbname);
+              fail && fail();
             }
-          }});        
+          });      
         },
         loggedInNow : function(loggedIn, loggedOut) {
           login = login || $.cookies.get("login");
@@ -193,7 +202,13 @@
         design : design,
         view : design.view,
         docForm : docForm,
-        prettyDate : prettyDate
+        prettyDate : prettyDate,
+        go : function(url) {
+          // callback for when not logged in
+          $('body').append('<a href="'+url+'">go</a>');
+          var absurl = $('body a:last')[0].href;
+          document.location = absurl;
+        }
       });
     });
   };
